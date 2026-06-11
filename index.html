@@ -5,193 +5,299 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aarthi Popat</title>
   <style>
-    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --text:      #1a1a1a;
-      --muted:     #555;
-      --accent:    #00356b; /* Yale blue */
-      --bg:        #ffffff;
-      --border:    #e5e5e5;
-      --max-w:     680px;
-      --font:      'Georgia', serif;
-      --sans:      system-ui, -apple-system, sans-serif;
+      --text:    #1a1a1a;
+      --muted:   #666;
+      --accent:  #00356b;
+      --light:   #f5f7fa;
+      --border:  #e5e5e5;
+      --max-w:   720px;
+      --serif:   'Georgia', serif;
+      --sans:    system-ui, -apple-system, sans-serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--font);
+      font-family: var(--serif);
       font-size: 17px;
-      line-height: 1.75;
+      line-height: 1.8;
       color: var(--text);
-      background: var(--bg);
+      background: #fff;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+    a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ── Layout ── */
     .container {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
     }
 
     /* ── Nav ── */
     nav {
-      position: sticky;
-      top: 0;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 20px 0;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 0 var(--border);
     }
     nav .container {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 16px;
-      padding-bottom: 16px;
     }
     nav .name {
       font-family: var(--sans);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 15px;
-      letter-spacing: 0.01em;
       color: var(--text);
-      text-decoration: none;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
-    nav .links {
+    nav.scrolled .name { opacity: 1; }
+    nav ul {
       display: flex;
-      gap: 24px;
+      gap: 28px;
+      list-style: none;
       font-family: var(--sans);
       font-size: 14px;
-      list-style: none;
     }
-    nav .links a {
-      color: var(--muted);
-    }
-    nav .links a:hover {
-      color: var(--accent);
-      text-decoration: none;
-    }
+    nav ul a { color: var(--muted); }
+    nav ul a:hover { color: var(--accent); text-decoration: none; }
 
     /* ── Hero ── */
     #hero {
-      padding: 80px 0 64px;
-    }
-    .hero-inner {
+      min-height: 100vh;
       display: flex;
-      align-items: flex-start;
-      gap: 40px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 28px 60px;
+      background: var(--light) url('website.png') center / cover no-repeat;
+      position: relative;
     }
-    .hero-photo {
-      width: 130px;
-      height: 130px;
+
+    .hero-photo-wrap {
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
-      background: var(--border); /* placeholder bg */
-    }
-    .hero-photo-placeholder {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 32px;
       background: #dde3eb;
-      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--sans);
       font-size: 13px;
       color: var(--muted);
-      text-align: center;
-      line-height: 1.3;
+      border: 4px solid #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
     }
-    .hero-text h1 {
+    .hero-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #hero h1 {
       font-family: var(--sans);
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 4px;
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 8px;
     }
-    .hero-text .role {
+
+    .hero-tagline {
+      font-family: var(--serif);
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 16px;
+      min-height: 2.4em;
+    }
+
+    /* typewriter cycling text */
+    .hero-tagline .static { color: var(--text); font-style: italic; }
+    .hero-tagline .cycle {
+      color: var(--accent);
+      font-style: italic;
+      border-right: 2px solid var(--accent);
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .hero-role {
       font-family: var(--sans);
       font-size: 15px;
       color: var(--muted);
-      margin-bottom: 20px;
+      margin-bottom: 40px;
+      letter-spacing: 0.02em;
     }
-    .hero-text p {
-      font-size: 16px;
-      color: var(--text);
+
+    .scroll-arrow {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .scroll-arrow svg { opacity: 0.5; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
     }
 
     /* ── Sections ── */
     section {
-      padding: 56px 0;
+      padding: 72px 0;
+    }
+    section + section {
       border-top: 1px solid var(--border);
     }
     section h2 {
       font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+
+    /* ── About ── */
+    #about { background: #fff; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-bio { font-size: 16px; }
+    .about-bio p + p { margin-top: 16px; }
+    .about-details {
+      font-family: var(--sans);
+      font-size: 14px;
       color: var(--muted);
-      margin-bottom: 28px;
+    }
+    .about-details .detail {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+    .about-details .label {
+      font-weight: 600;
+      color: var(--text);
+      min-width: 70px;
+    }
+    .social-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .social-btn {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 6px 16px;
+      transition: all 0.15s;
+    }
+    .social-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
     }
 
     /* ── Research ── */
-    .research-interests {
-      margin-bottom: 28px;
+    #research { background: var(--light); }
+    .research-intro {
       font-size: 16px;
+      margin-bottom: 48px;
+      max-width: 580px;
     }
-    .project {
-      margin-bottom: 32px;
+    .project-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s;
     }
-    .project h3 {
+    .project-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    }
+    .project-card .tag {
       font-family: var(--sans);
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .project-card h3 {
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
       color: var(--text);
     }
-    .project p {
+    .project-card p {
       font-size: 15px;
       color: var(--muted);
-    }
-    .tag {
-      display: inline-block;
-      font-family: var(--sans);
-      font-size: 12px;
-      background: #eef2f7;
-      color: var(--accent);
-      border-radius: 4px;
-      padding: 2px 8px;
-      margin-right: 6px;
-      margin-bottom: 8px;
+      line-height: 1.7;
     }
 
     /* ── Publications ── */
-    .pub-list {
-      list-style: none;
-    }
-    .pub-list li {
-      padding: 18px 0;
+    #publications { background: #fff; }
+    .pub-group + .pub-group { margin-top: 40px; }
+    .pub-group-label {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
+    }
+    .pub {
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f0f0;
       font-size: 15px;
+      line-height: 1.65;
     }
-    .pub-list li:last-child { border-bottom: none; }
-    .pub-authors { color: var(--muted); }
-    .pub-title {
-      font-style: italic;
-      color: var(--text);
-    }
+    .pub:last-child { border-bottom: none; }
+    .pub-title { font-style: italic; color: var(--text); }
+    .pub-authors { color: var(--muted); font-size: 14px; margin-top: 2px; }
     .pub-venue {
       font-family: var(--sans);
       font-size: 13px;
@@ -202,75 +308,76 @@
       font-family: var(--sans);
       font-size: 13px;
       margin-top: 6px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
     }
     .pub-links a {
-      margin-right: 12px;
+      color: var(--accent);
+      font-weight: 500;
     }
 
     /* ── CV ── */
-    .cv-link {
+    #cv { background: var(--light); }
+    .cv-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+    }
+    .cv-block p {
+      font-size: 16px;
+      color: var(--muted);
+    }
+    .cv-download {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-family: var(--sans);
+      font-weight: 600;
       font-size: 15px;
-      font-weight: 500;
-      color: var(--accent);
-      border: 1px solid var(--accent);
-      border-radius: 6px;
-      padding: 10px 20px;
-      transition: background 0.15s;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 8px;
+      padding: 14px 28px;
+      width: fit-content;
+      transition: opacity 0.15s;
     }
-    .cv-link:hover {
-      background: #eef2f7;
-      text-decoration: none;
-    }
-    .cv-note {
-      font-family: var(--sans);
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 12px;
-    }
+    .cv-download:hover { opacity: 0.85; text-decoration: none; }
 
     /* ── Footer ── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 0 48px;
+      background: var(--text);
+      color: rgba(255,255,255,0.5);
+      padding: 40px 0;
+      font-family: var(--sans);
+      font-size: 13px;
     }
-    .footer-inner {
+    footer .container {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 16px;
     }
-    .social-links {
-      display: flex;
-      gap: 20px;
-      font-family: var(--sans);
-      font-size: 14px;
-    }
-    .footer-copy {
-      font-family: var(--sans);
-      font-size: 13px;
-      color: var(--muted);
-    }
+    footer a { color: rgba(255,255,255,0.7); }
+    footer a:hover { color: #fff; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; }
 
     /* ── Responsive ── */
-    @media (max-width: 520px) {
-      .hero-inner { flex-direction: column; gap: 24px; }
-      nav .links { gap: 16px; }
-      .hero-text h1 { font-size: 22px; }
+    @media (max-width: 600px) {
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      nav ul { gap: 16px; }
     }
   </style>
 </head>
 <body>
 
   <!-- Nav -->
-  <nav>
+  <nav id="nav">
     <div class="container">
       <a class="name" href="#hero">Aarthi Popat</a>
-      <ul class="links">
+      <ul>
         <li><a href="#about">about</a></li>
         <li><a href="#research">research</a></li>
         <li><a href="#publications">publications</a></li>
@@ -280,35 +387,78 @@
   </nav>
 
   <!-- Hero -->
-  <div id="hero">
-    <div class="container">
-      <div class="hero-inner">
-        <!-- Replace with: <img class="hero-photo" src="your-photo.jpg" alt="Aarthi Popat"> -->
-        <div class="hero-photo-placeholder">your<br>photo</div>
-        <div class="hero-text">
-          <h1>Aarthi Popat</h1>
-          <p class="role">PhD Student · Yale University</p>
-          <p>
-            I am a PhD student at Yale University studying [your field]. My research focuses on
-            [brief description of research interests — e.g., how people learn, reason, and make decisions].
-            I am advised by [Advisor Name] in the [Lab Name].
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <section id="hero">
+    <!-- Replace div below with: <img src="photo.jpg" alt="Aarthi Popat"> inside .hero-photo-wrap -->
+    <div class="hero-photo-wrap">your photo</div>
+
+    <h1>Aarthi Popat.</h1>
+
+    <p class="hero-tagline">
+      <span class="static">How do we </span><span class="cycle" id="cycle-text"></span>
+    </p>
+
+    <p class="hero-role">PhD Student · Yale University · [Your Department]</p>
+
+    <a class="scroll-arrow" href="#about">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
+  </section>
 
   <!-- About -->
   <section id="about">
     <div class="container">
       <h2>About</h2>
-      <p style="margin-bottom: 16px;">
-        I am broadly interested in [research area]. Before Yale, I [undergraduate / prior experience, e.g., studied X at Y University and worked as a Z].
-      </p>
-      <p>
-        Outside of research, I enjoy [hobbies / interests]. Feel free to reach out at
-        <a href="mailto:aarthi.popat@yale.edu">aarthi.popat@yale.edu</a>.
-      </p>
+      <div class="about-grid">
+        <div class="about-bio">
+          <p>
+            I am a PhD student in [Department] at Yale University, advised by
+            <a href="#">[Advisor Name]</a> in the <a href="#">[Lab Name]</a>.
+          </p>
+          <p>
+            My research focuses on [your core research question — e.g., how people learn,
+            represent, and communicate knowledge]. I use methods from [area 1] and [area 2]
+            to study these questions.
+          </p>
+          <p>
+            Before Yale, I [prior experience — e.g., completed my BA/BS at X University,
+            where I worked with Professor Y on Z].
+          </p>
+          <p>
+            Outside of research, I enjoy [hobbies]. Feel free to reach out at
+            <a href="mailto:aarthi.popat@yale.edu">aarthi.popat@yale.edu</a>.
+          </p>
+        </div>
+        <div class="about-details">
+          <div class="detail">
+            <span class="label">Position</span>
+            <span>PhD Student, Year [N]</span>
+          </div>
+          <div class="detail">
+            <span class="label">Advisor</span>
+            <span><a href="#">[Advisor Name]</a></span>
+          </div>
+          <div class="detail">
+            <span class="label">Lab</span>
+            <span><a href="#">[Lab Name]</a></span>
+          </div>
+          <div class="detail">
+            <span class="label">Dept.</span>
+            <span>[Department], Yale University</span>
+          </div>
+          <div class="detail">
+            <span class="label">B.A./B.S.</span>
+            <span>[Undergrad Institution], [Year]</span>
+          </div>
+          <div class="social-row">
+            <a class="social-btn" href="mailto:aarthi.popat@yale.edu">Email</a>
+            <a class="social-btn" href="#" target="_blank">Google Scholar</a>
+            <a class="social-btn" href="#" target="_blank">Twitter / X</a>
+            <a class="social-btn" href="#" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -316,26 +466,27 @@
   <section id="research">
     <div class="container">
       <h2>Research</h2>
-      <p class="research-interests" style="margin-bottom: 32px;">
-        My work sits at the intersection of [area 1] and [area 2]. I use methods from [method 1] and [method 2] to study questions about [core question].
+      <p class="research-intro">
+        My work sits at the intersection of [area 1] and [area 2]. I am broadly interested
+        in [overarching question], and I approach this through [methods / paradigms].
       </p>
 
-      <div class="project">
-        <span class="tag">Project 1</span>
+      <div class="project-card">
+        <div class="tag">Project 1</div>
         <h3>Project title goes here</h3>
-        <p>Brief description of what this project is about, the question it addresses, and any key findings or ongoing work.</p>
+        <p>Brief description of this project — what question it addresses, what methods you use, and any key findings or current status.</p>
       </div>
 
-      <div class="project">
-        <span class="tag">Project 2</span>
-        <h3>Another project title</h3>
-        <p>Brief description of what this project is about, the question it addresses, and any key findings or ongoing work.</p>
+      <div class="project-card">
+        <div class="tag">Project 2</div>
+        <h3>A second research project</h3>
+        <p>Brief description of this project — what question it addresses, what methods you use, and any key findings or current status.</p>
       </div>
 
-      <div class="project">
-        <span class="tag">Project 3</span>
-        <h3>A third project or collaboration</h3>
-        <p>Brief description of what this project is about, the question it addresses, and any key findings or ongoing work.</p>
+      <div class="project-card">
+        <div class="tag">Project 3</div>
+        <h3>A collaboration or ongoing project</h3>
+        <p>Brief description of this project — what question it addresses, what methods you use, and any key findings or current status.</p>
       </div>
     </div>
   </section>
@@ -344,39 +495,43 @@
   <section id="publications">
     <div class="container">
       <h2>Publications</h2>
-      <ul class="pub-list">
 
-        <li>
-          <div class="pub-authors"><strong>Popat, A.</strong>, Coauthor, B., &amp; Advisor, C. (2025).</div>
+      <div class="pub-group">
+        <div class="pub-group-label">Journal Articles</div>
+
+        <div class="pub">
           <div class="pub-title">Title of your most recent paper or manuscript.</div>
-          <div class="pub-venue"><em>Journal / Conference Name</em>, vol(issue), pages.</div>
+          <div class="pub-authors"><strong>Popat, A.</strong>, Coauthor, B., &amp; Advisor, C. (2025). <em>Journal Name</em>.</div>
           <div class="pub-links">
             <a href="#">Paper</a>
             <a href="#">Preprint</a>
             <a href="#">Code</a>
           </div>
-        </li>
+        </div>
 
-        <li>
-          <div class="pub-authors"><strong>Popat, A.</strong>, &amp; Coauthor, D. (2024).</div>
-          <div class="pub-title">Title of another paper or conference proceedings.</div>
-          <div class="pub-venue"><em>Conference / Journal Name</em>. City, Country.</div>
+        <div class="pub">
+          <div class="pub-title">Title of another journal paper.</div>
+          <div class="pub-authors">Coauthor, D., <strong>Popat, A.</strong>, &amp; Advisor, C. (2024). <em>Journal Name</em>.</div>
+          <div class="pub-links">
+            <a href="#">Paper</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pub-group">
+        <div class="pub-group-label">Conference Proceedings &amp; Posters</div>
+
+        <div class="pub">
+          <div class="pub-title">Title of a conference paper or poster.</div>
+          <div class="pub-authors"><strong>Popat, A.</strong>, &amp; Coauthor, E. (2024). <em>Proceedings of the Conference Name</em>. City, Country.</div>
           <div class="pub-links">
             <a href="#">Paper</a>
             <a href="#">Poster</a>
           </div>
-        </li>
+        </div>
 
-        <li>
-          <div class="pub-authors">Coauthor, E., <strong>Popat, A.</strong>, &amp; Advisor, C. (2023).</div>
-          <div class="pub-title">Title of a paper where you are a middle author.</div>
-          <div class="pub-venue"><em>Journal Name</em>.</div>
-          <div class="pub-links">
-            <a href="#">Paper</a>
-          </div>
-        </li>
-
-      </ul>
+      </div>
     </div>
   </section>
 
@@ -384,36 +539,80 @@
   <section id="cv">
     <div class="container">
       <h2>CV</h2>
-      <a class="cv-link" href="cv.pdf" target="_blank">
-        <!-- PDF icon -->
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/>
-          <line x1="16" y1="17" x2="8" y2="17"/>
-          <polyline points="10 9 9 9 8 9"/>
-        </svg>
-        Download CV
-      </a>
-      <p class="cv-note">Last updated [Month Year] · Replace <code>cv.pdf</code> with your actual file.</p>
+      <div class="cv-block">
+        <p>Full curriculum vitae available below. Last updated [Month Year].</p>
+        <a class="cv-download" href="cv.pdf" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download CV
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
     <div class="container">
-      <div class="footer-inner">
-        <div class="social-links">
-          <a href="mailto:aarthi.popat@yale.edu">Email</a>
-          <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
-          <a href="https://twitter.com" target="_blank">Twitter / X</a>
-          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-          <a href="https://github.com" target="_blank">GitHub</a>
-        </div>
-        <span class="footer-copy">Aarthi Popat · Yale University</span>
+      <span>© 2025 Aarthi Popat · Yale University</span>
+      <div class="footer-links">
+        <a href="mailto:aarthi.popat@yale.edu">Email</a>
+        <a href="#" target="_blank">Google Scholar</a>
+        <a href="#" target="_blank">Twitter / X</a>
+        <a href="#" target="_blank">GitHub</a>
       </div>
     </div>
   </footer>
+
+  <script>
+    // Nav on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Typewriter cycling phrases
+    const phrases = [
+      'learn from experience?',
+      'form mental representations?',
+      'reason about others\' minds?',
+      'communicate knowledge?',
+      'make decisions under uncertainty?',
+    ];
+    // ← Replace these with phrases relevant to YOUR research
+
+    const el = document.getElementById('cycle-text');
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    const SPEED_TYPE = 60;
+    const SPEED_DELETE = 35;
+    const PAUSE = 2000;
+
+    function type() {
+      const current = phrases[phraseIndex];
+      if (!deleting) {
+        el.textContent = current.slice(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === current.length) {
+          deleting = true;
+          setTimeout(type, PAUSE);
+          return;
+        }
+      } else {
+        el.textContent = current.slice(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+        }
+      }
+      setTimeout(type, deleting ? SPEED_DELETE : SPEED_TYPE);
+    }
+    type();
+  </script>
 
 </body>
 </html>
