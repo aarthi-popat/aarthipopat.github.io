@@ -40,33 +40,19 @@
     /* ── Nav ── */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 20px; right: 28px;
       z-index: 200;
-      padding: 20px 0;
-      transition: background 0.3s, box-shadow 0.3s;
-    }
-    nav.scrolled {
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 1px 0 var(--border);
     }
     nav .container {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
+      padding: 0;
     }
-    nav .name {
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--text);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    nav.scrolled .name { opacity: 1; }
+    nav .name { display: none; }
     nav ul {
       display: flex;
-      gap: 28px;
+      gap: 8px;
       list-style: none;
       font-family: var(--sans);
       font-size: 14px;
@@ -113,6 +99,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 15%;
+      transform: scale(1.5);
     }
 
     #hero h1 {
@@ -400,10 +388,10 @@
     <h1>Aarthi Popat</h1>
 
     <p class="hero-tagline">
-      <span class="static">How do we </span><span class="cycle" id="cycle-text"></span>
+      <span class="static">How do we use statistical information to </span><span class="cycle" id="cycle-text"></span><span class="static"> across the lifespan?</span>
     </p>
 
-    <p class="hero-role">PhD Student · Yale University · [Your Department]</p>
+    <p class="hero-role">PhD Student @ Yale in Developmental Psychology</p>
 
     <a class="scroll-arrow" href="#about">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -581,13 +569,12 @@
 
     // Typewriter cycling phrases
     const phrases = [
-      'learn from experience?',
-      'form mental representations?',
-      'reason about others\' minds?',
-      'communicate knowledge?',
-      'make decisions under uncertainty?',
+      'make inferences about our competence',
+      'reason about our success and failure',
+      'decide who deserves a chance',
+      'detect and evaluate discrimination',
+      'decide whether to quit or persist',
     ];
-    // ← Replace these with phrases relevant to YOUR research
 
     const el = document.getElementById('cycle-text');
     let phraseIndex = 0;
