@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aarthi Popat</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text:      #1a1a1a;
+      --muted:     #555;
+      --accent:    #00356b; /* Yale blue */
+      --bg:        #ffffff;
+      --border:    #e5e5e5;
+      --max-w:     680px;
+      --font:      'Georgia', serif;
+      --sans:      system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    nav .name {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    nav .links {
+      display: flex;
+      gap: 24px;
+      font-family: var(--sans);
+      font-size: 14px;
+      list-style: none;
+    }
+    nav .links a {
+      color: var(--muted);
+    }
+    nav .links a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      padding: 80px 0 64px;
+    }
+    .hero-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 40px;
+    }
+    .hero-photo {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--border); /* placeholder bg */
+    }
+    .hero-photo-placeholder {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: #dde3eb;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.3;
+    }
+    .hero-text h1 {
+      font-family: var(--sans);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .hero-text .role {
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .hero-text p {
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    /* ── Sections ── */
+    section {
+      padding: 56px 0;
+      border-top: 1px solid var(--border);
+    }
+    section h2 {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* ── Research ── */
+    .research-interests {
+      margin-bottom: 28px;
+      font-size: 16px;
+    }
+    .project {
+      margin-bottom: 32px;
+    }
+    .project h3 {
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+    .project p {
+      font-size: 15px;
+      color: var(--muted);
+    }
+    .tag {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 12px;
+      background: #eef2f7;
+      color: var(--accent);
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-right: 6px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Publications ── */
+    .pub-list {
+      list-style: none;
+    }
+    .pub-list li {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+    .pub-list li:last-child { border-bottom: none; }
+    .pub-authors { color: var(--muted); }
+    .pub-title {
+      font-style: italic;
+      color: var(--text);
+    }
+    .pub-venue {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .pub-links {
+      font-family: var(--sans);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    .pub-links a {
+      margin-right: 12px;
+    }
+
+    /* ── CV ── */
+    .cv-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 10px 20px;
+      transition: background 0.15s;
+    }
+    .cv-link:hover {
+      background: #eef2f7;
+      text-decoration: none;
+    }
+    .cv-note {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0 48px;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .social-links {
+      display: flex;
+      gap: 20px;
+      font-family: var(--sans);
+      font-size: 14px;
+    }
+    .footer-copy {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .hero-inner { flex-direction: column; gap: 24px; }
+      nav .links { gap: 16px; }
+      .hero-text h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="container">
+      <a class="name" href="#hero">Aarthi Popat</a>
+      <ul class="links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#research">research</a></li>
+        <li><a href="#publications">publications</a></li>
+        <li><a href="#cv">cv</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <!-- Replace with: <img class="hero-photo" src="your-photo.jpg" alt="Aarthi Popat"> -->
+        <div class="hero-photo-placeholder">your<br>photo</div>
+        <div class="hero-text">
+          <h1>Aarthi Popat</h1>
+          <p class="role">PhD Student · Yale University</p>
+          <p>
+            I am a PhD student at Yale University studying [your field]. My research focuses on
+            [brief description of research interests — e.g., how people learn, reason, and make decisions].
+            I am advised by [Advisor Name] in the [Lab Name].
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h2>About</h2>
+      <p style="margin-bottom: 16px;">
+        I am broadly interested in [research area]. Before Yale, I [undergraduate / prior experience, e.g., studied X at Y University and worked as a Z].
+      </p>
+      <p>
+        Outside of research, I enjoy [hobbies / interests]. Feel free to reach out at
+        <a href="mailto:aarthi.popat@yale.edu">aarthi.popat@yale.edu</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research">
+    <div class="container">
+      <h2>Research</h2>
+      <p class="research-interests" style="margin-bottom: 32px;">
+        My work sits at the intersection of [area 1] and [area 2]. I use methods from [method 1] and [method 2] to study questions about [core question].
+      </p>
+
+      <div class="project">
+        <span class="tag">Project 1</span>
+        <h3>Project title goes here</h3>
+        <p>Brief description of what this project is about, the question it addresses, and any key findings or ongoing work.</p>
+      </div>
+
+      <div class="project">
+        <span class="tag">Project 2</span>
+        <h3>Another project title</h3>
+        <p>Brief description of what this project is about, the question it addresses, and any key findings or ongoing work.</p>
+      </div>
+
+      <div class="project">
+        <span class="tag">Project 3</span>
+        <h3>A third project or collaboration</h3>
+        <p>Brief description of what this project is about, the question it addresses, and any key findings or ongoing work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section id="publications">
+    <div class="container">
+      <h2>Publications</h2>
+      <ul class="pub-list">
+
+        <li>
+          <div class="pub-authors"><strong>Popat, A.</strong>, Coauthor, B., &amp; Advisor, C. (2025).</div>
+          <div class="pub-title">Title of your most recent paper or manuscript.</div>
+          <div class="pub-venue"><em>Journal / Conference Name</em>, vol(issue), pages.</div>
+          <div class="pub-links">
+            <a href="#">Paper</a>
+            <a href="#">Preprint</a>
+            <a href="#">Code</a>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-authors"><strong>Popat, A.</strong>, &amp; Coauthor, D. (2024).</div>
+          <div class="pub-title">Title of another paper or conference proceedings.</div>
+          <div class="pub-venue"><em>Conference / Journal Name</em>. City, Country.</div>
+          <div class="pub-links">
+            <a href="#">Paper</a>
+            <a href="#">Poster</a>
+          </div>
+        </li>
+
+        <li>
+          <div class="pub-authors">Coauthor, E., <strong>Popat, A.</strong>, &amp; Advisor, C. (2023).</div>
+          <div class="pub-title">Title of a paper where you are a middle author.</div>
+          <div class="pub-venue"><em>Journal Name</em>.</div>
+          <div class="pub-links">
+            <a href="#">Paper</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section id="cv">
+    <div class="container">
+      <h2>CV</h2>
+      <a class="cv-link" href="cv.pdf" target="_blank">
+        <!-- PDF icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        Download CV
+      </a>
+      <p class="cv-note">Last updated [Month Year] · Replace <code>cv.pdf</code> with your actual file.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="social-links">
+          <a href="mailto:aarthi.popat@yale.edu">Email</a>
+          <a href="https://scholar.google.com" target="_blank">Google Scholar</a>
+          <a href="https://twitter.com" target="_blank">Twitter / X</a>
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+          <a href="https://github.com" target="_blank">GitHub</a>
+        </div>
+        <span class="footer-copy">Aarthi Popat · Yale University</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
