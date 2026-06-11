@@ -71,8 +71,14 @@
       font-family: var(--sans);
       font-size: 14px;
     }
-    nav ul a { color: var(--muted); }
-    nav ul a:hover { color: var(--accent); text-decoration: none; }
+    nav ul a {
+      color: var(--muted);
+      background: rgba(255,255,255,0.85);
+      border-radius: 20px;
+      padding: 4px 12px;
+      backdrop-filter: blur(4px);
+    }
+    nav ul a:hover { color: var(--accent); text-decoration: none; background: rgba(255,255,255,0.95); }
 
     /* ── Hero ── */
     #hero {
@@ -389,9 +395,9 @@
   <!-- Hero -->
   <section id="hero">
     <!-- Replace div below with: <img src="photo.jpg" alt="Aarthi Popat"> inside .hero-photo-wrap -->
-    <div class="hero-photo-wrap">your photo</div>
+    <div class="hero-photo-wrap"><img src="headshot.jpg" alt="Aarthi Popat"></div>
 
-    <h1>Aarthi Popat.</h1>
+    <h1>Aarthi Popat</h1>
 
     <p class="hero-tagline">
       <span class="static">How do we </span><span class="cycle" id="cycle-text"></span>
